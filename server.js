@@ -58,6 +58,5 @@ app.get('/usuarios', async (req, res) => {
     res.status(200).json(users)
 })
 
-app.listen(process.env.PORT || 3000, "0.0.0.0", () =>
-    console.log("Servidor rodando...")
-)
+const PORT = process.env.PORT || 3000
+app.listen(PORT, "0.0.0.0", () => console.log(`Servidor rodando na porta ${PORT}...`))
