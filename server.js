@@ -5,17 +5,30 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 const app = express()
 
-// ✅ Configuração CORS — permite acesso do GitHub Pages e localhost
+// ✅ CORS dinâmico — permite acesso do GitHub Pages, localhost e qualquer domínio autorizado
+const allowedOrigins = [
+    'https://ozymandiasbrando.github.io',
+    'http://localhost:3000'
+]
+
 app.use(cors({
-    origin: [
-        'https://ozymandiasbrando.github.io', // seu site no GitHub Pages
-        'http://localhost:3000'               // ambiente local
-    ],
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Não permitido pelo CORS'))
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type'],
 }))
 
 app.use(express.json())
+
+// ✅ Rota básica para ver se o servidor está rodando
+app.get('/', (req, res) => {
+    res.json({ status: 'API online 🚀' })
+})
 
 // ✅ Rota POST - criar usuário
 app.post('/usuarios', async (req, res) => {
