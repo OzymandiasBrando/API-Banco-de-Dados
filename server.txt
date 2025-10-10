@@ -1,0 +1,47 @@
+=== Instruções para manter servidor Node rodando 24/7 no Windows ===
+
+1️⃣ Instalar PM2
+- Abra o PowerShell como administrador
+- Rode:
+
+    npm install -g pm2
+
+2️⃣ Iniciar servidor com PM2
+- Navegue até a pasta do projeto:
+
+    cd C:\caminho\do\seu\projeto
+
+- Inicie o servidor:
+
+    pm2 start server.js --name "pedidos"
+
+- Verifique se está rodando:
+
+    pm2 list
+
+3️⃣ Configurar PM2 para iniciar com o Windows
+- Gere script de inicialização:
+
+    pm2 startup
+
+- Siga as instruções que o PM2 der no terminal (copie e cole o comando sugerido)
+- Salve o estado atual para iniciar o servidor automaticamente após reinício:
+
+    pm2 save
+
+4️⃣ Gerenciar servidor
+- Ver logs em tempo real:
+
+    pm2 logs meu-servidor
+
+- Reiniciar servidor:
+
+    pm2 restart meu-servidor
+
+- Parar servidor:
+
+    pm2 stop meu-servidor
+
+- Remover servidor do PM2:
+
+    pm2 delete meu-servidor
